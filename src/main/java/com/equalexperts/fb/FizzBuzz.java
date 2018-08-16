@@ -51,29 +51,28 @@ public class FizzBuzz {
 		});
 	}
 	
-	private void print(Integer value) {
-		boolean isDivisable = false;
-		if (value % 3 == 0 && !String.valueOf(value).contains("3")) {
-			System.out.print(FIZZ);
-			isDivisable = true;
-		}
-		
-		if (value % 5 == 0 && !String.valueOf(value).contains("3")) {
-			System.out.print(BUZZ);
-			isDivisable = true;
-		}
-		
-		if (!isDivisable && !String.valueOf(value).contains("3")) {
-			System.out.print(value);			
-		}
-		
-		if (String.valueOf(value).contains("3")) {
+	private void print(Integer value) {		
+		boolean isDivisableByThree = (value % 3 == 0);
+		boolean isDivisableByFive = (value % 5 == 0);
+		boolean isDivisableByFifteen = (value % 15 == 0);
+		boolean containsAThree = String.valueOf(value).contains("3");
+
+		if (containsAThree) {
 			System.out.print(LUCKY);
+		} else if (isDivisableByFifteen) {
+			System.out.print(FIZZ);
+			System.out.print(BUZZ);
+		} else if (isDivisableByFive) {
+			System.out.print(BUZZ);			
+		} else if (isDivisableByThree) {
+			System.out.print(FIZZ);			
+		} else {
+			System.out.print(value);			
 		}
 		
 		if (value.intValue() < maxRange) {
 			System.out.print(" ");			
-		}
+		}		
 	}
 	
 	/**
