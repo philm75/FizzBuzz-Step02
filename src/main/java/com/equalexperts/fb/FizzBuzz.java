@@ -1,12 +1,9 @@
-package com.mcs;
+package com.equalexperts.fb;
 
-import java.util.Iterator;
 import java.util.stream.IntStream;
 
 /**
- * @author Phil Merrilees
- * Sep 5, 2017
- * Description - "FizzBuzz" program
+ * Description - "FizzBuzz" program - Step 2.
  */
 public class FizzBuzz {
 
@@ -31,7 +28,7 @@ public class FizzBuzz {
 	 */
 	private static final String FIZZ = "fizz";
 	private static final String BUZZ = "buzz";
-	private static final String LUCK = "luck";
+	private static final String LUCKY = "lucky";
 	
 	/**
 	 * @param minRange
@@ -48,41 +45,37 @@ public class FizzBuzz {
 		this.maxRange = maxRange;
 	}
 	
-	public void go() {
-		Iterator<Integer> it = IntStream.rangeClosed(minRange, maxRange).iterator();
-		while (it.hasNext()) {
-			System.out.print(output(it.next()));
-		}
+	public void run() {
+		IntStream.rangeClosed(minRange, maxRange).forEach(number -> {
+			print(number);
+		});
 	}
 	
-	private static String output(Integer value) {
-		StringBuilder output = new StringBuilder();
+	private void print(Integer value) {
 		boolean isDivisable = false;
-		if (value % 3 == 0 && !containsAThree(value)) {
-			output.append(FIZZ);
-			isDivisable = true;
-		} 
-		if (value % 5 == 0 && !containsAThree(value)) {
-			output.append(BUZZ);
+		if (value % 3 == 0 && !String.valueOf(value).contains("3")) {
+			System.out.print(FIZZ);
 			isDivisable = true;
 		}
 		
-		if (!isDivisable && !containsAThree(value)) {
-			output.append(String.valueOf(value));			
+		if (value % 5 == 0 && !String.valueOf(value).contains("3")) {
+			System.out.print(BUZZ);
+			isDivisable = true;
 		}
 		
-		if (containsAThree(value)) {
-			output.append(LUCK);
+		if (!isDivisable && !String.valueOf(value).contains("3")) {
+			System.out.print(value);			
 		}
 		
-		output.append(" ");
-		return output.toString();
+		if (String.valueOf(value).contains("3")) {
+			System.out.print(LUCKY);
+		}
+		
+		if (value.intValue() < maxRange) {
+			System.out.print(" ");			
+		}
 	}
 	
-	private static boolean containsAThree(int value) {
-		return String.valueOf(value).contains("3");
-	}
-
 	/**
 	 * Program entry point.
 	 * 
@@ -90,6 +83,8 @@ public class FizzBuzz {
 	 */
 	public static void main(String[] args) {
 		FizzBuzz fizzBuzz = new FizzBuzz(1, 20);
-		fizzBuzz.go();
+		fizzBuzz.run();
+		System.out.println("");
+		fizzBuzz.run();
 	}
 }
